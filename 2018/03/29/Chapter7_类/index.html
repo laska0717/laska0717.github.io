@@ -61,9 +61,37 @@
 </ul>
 <p>11 想把一组重载函数声明为友元，需要为每一个函数分别声明友元。</p>
 <p>12 类与非成员函数的声明不必须在它们的友元声明之前。</p>
-<p>13 友元函数可以定义在类内，但是注意</p>
+<p>13 友元函数可以定义在类内，但是注意。</p>
 <ul>
-<li>就算定义在类内，也必须在类外提供该函数的声明而使得函数可见（）</li>
-<li>因为<strong>友元</strong>仅仅只是影响到了权限</li>
+<li>就算定义在类内，也必须在类外提供该函数的声明而使得函数可见。</li>
+<li>因为<strong>友元</strong>仅仅只是影响到了权限。</li>
 </ul>
-<h1 id="四-类的作用域"><a href="#四-类的作用域" class="headerlink" title="四.类的作用域"></a>四.类的作用域</h1></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-03-29</span><i class="fa fa-tag"></i><a class="tag" href="/categories/C/" title="C++">C++ </a><a class="tag" href="/tags/c/" title="c++">c++ </a><a class="tag" href="/tags/class/" title="class">class </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2018/03/29/Chapter7_类/,Hailu's Blog,《C++ Primer 5》Chapter7读书笔记,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/03/29/First/" title="First">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
+<h1 id="四-类的作用域"><a href="#四-类的作用域" class="headerlink" title="四.类的作用域"></a>四.类的作用域</h1><p>1 当成员函数定义在类的外部的时候，返回类型中使用的名字都位于类的作用域之外，这时候，返回类型必须指明他是哪个类的成员（尤其是当返回类型是定义在某个类的内部的时候）。</p>
+<p>2 类的定义分为两步：</p>
+<ul>
+<li>编译成员的声明</li>
+<li>直到类全部可见后才编译函数体</li>
+</ul>
+<p>3 一般来说，内层作用域可以重新定义外层作用域中的名字（覆盖），然而在类中，有一种特殊情况：</p>
+<ul>
+<li>如果成员使用了外层作用域中的某个名字，而该名字代表一种类型，则类不能在之后重新定义该名字</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> Money;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Money <span class="title">balance</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> bal; &#125;   <span class="comment">//使用外层作用域中的Money</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">double</span> Money;            <span class="comment">//错误，不能重新定义该名字</span></span><br><span class="line">    Money bal;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="五-造函数再探"><a href="#五-造函数再探" class="headerlink" title="五.造函数再探"></a>五.造函数再探</h1><p>1 如果没有在构造函数的初始值列表中显示地初始化成员，则该成员将在构造函数体之前执行默认初始化，也就是说，如果你没有使用初始值列表来进行初始化，而是在函数体内做赋值操作，其实是先进行了默认初始化，然后做了一个赋值操作。</p>
+<p>2 有时候可以忽略初始化与赋值之间的差异，但是以下几种情况必须使用构造函数的初始值列表为这些成员提供初始值（而不是使用赋值操作）：</p>
+<ul>
+<li>成员是const，因为const不允许改变，而赋值操作是一种改变。</li>
+<li>成员是引用，引用一经绑定就不允许改变。</li>
+<li>成员是某种类类型，且没有定义默认构造函数</li>
+</ul>
+<p>3 构造函数初始值列表只能说明用于初始化成员的值，而不限定初始化执行顺序，<strong>成员初始化顺序与在类中的定义顺序一致</strong></p>
+<p>4 默认实参构造函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sales_data</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Sales_data( <span class="built_in">std</span>::<span class="built_in">string</span> s=<span class="string">""</span> )&#123;&#125;</span><br><span class="line">    <span class="comment">//这是一个默认构造函数，其与只接受一个string实参的构造函数的功能相同</span></span><br><span class="line">    <span class="comment">//这里注意，如果构造的时候，没有传入参数，就是相当于默认构造函数</span></span><br><span class="line">    <span class="comment">//如果传入了参数，就是相当于参数构造函数</span></span><br><span class="line">    <span class="comment">//这样的形式称为默认实参</span></span><br><span class="line">    <span class="comment">//如果一个构造函数为所有参数都提供了默认实参，则它实际上也定义了默认构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>5 C++11 委托构造函数，一个委托构造函数使用它所属的类的其他构造函数执行它自己的初始化过程。也就是说，他把他自己的一些（或者全部）职责委托给了其他构造函数。</p>
+<p>6 受委托的构造函数的初始值列表和函数体被依次执行。</p>
+<ul>
+<li>A委托B做构造函数，先执行A的初始值列表，也就是进入B的构造函数，执行B的所有（初始化，函数体等），然后才将控制权交还给A。</li>
+</ul>
+<p>7 p262</p>
+<p>【未完】</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-03-29</span><i class="fa fa-tag"></i><a class="tag" href="/categories/C/" title="C++">C++ </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2018/03/29/Chapter7_类/,Hailu's Blog,《C++ Primer 5》Chapter7读书笔记,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/03/29/hello-world/" title="Hello World">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
