@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hailu"><title>《鸟哥的Linux私房菜基础篇》Chapter0&1读书笔记 · Hailu's Blog</title><meta name="description" content="Chapter0&amp;amp;1的读书笔记
+
+Chapter 0 计算机概论1 电脑是由几个单元所组成的，包括输入单元、输出单元、CPU 内部的控制单元、算数逻辑单元与内存五大部分
+2 CPU 其实内部已经含有一些微指令，我们所使用的软件都要经过CPU 内部的微指令集来达成才行。那这些指令集的设计主要又"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">Hailu's Blog</a></h3><div class="description"><p>53696C656E636520697320676F6C64</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">Sobre</a></li><li><a href="/archives">Arquivo</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>《鸟哥的Linux私房菜基础篇》Chapter0&amp;1读书笔记</a></h3></div><div class="post-content"><p>Chapter0&amp;1的读书笔记</p>
+<a id="more"></a>
+<h1 id="Chapter-0-计算机概论"><a href="#Chapter-0-计算机概论" class="headerlink" title="Chapter 0 计算机概论"></a>Chapter 0 计算机概论</h1><p>1 电脑是由几个单元所组成的，包括输入单元、输出单元、CPU 内部的控制单元、算数逻辑单元与内存五大部分</p>
+<p>2 CPU 其实内部已经含有一些微指令，我们所使用的软件都要经过CPU 内部的微指令集来达成才行。那这些指令集的设计主要又被分为两种设计理念：</p>
+<ul>
+<li>精简指令集（RISC）<ul>
+<li>微指令集较为精简，每个指令的执行时间都很短，完成的动作也很单纯，指令的执行性能较佳；但是若要做复杂的事情，就要由多个指令来完成</li>
+<li>常见的RISC微指令集CPU 主要例如甲骨文（Oracle）公司的SPARC 系列、IBM 公司的PowerArchitecture（包括PowerPC）系列、与安谋公司（ARM Holdings）的ARM CPU系列等</li>
+</ul>
+</li>
+<li>复杂指令集（CISC）<ul>
+<li>CISC在微指令集的每个小指令可以执行一些较低阶的硬件操作，指令数目多而且复杂，每条指令的长度并不相同。因为指令执行较为复杂所以每条指令花费的时间较长，但每条个别指令可以处理的工作较为丰富</li>
+<li>常见的CISC微指令集CPU主要有AMD、Intel、VIA等的x86架构的CPU。</li>
+<li>2003年以前由Intel所开发的x86架构CPU由8位升级到16、32位，后来AMD依此架构修改新一代的CPU为64位，为了区别两者的差异，因此64位的个人电脑CPU又被统称为x86_64的架构</li>
+<li>所谓的位指的是CPU一次数据读取的最大量！64位CPU代表CPU一次可以读写64bits这么多的数据，32位CPU则是CPU一次只能读取32位的意思</li>
+</ul>
+</li>
+</ul>
+<p>3 容量单位</p>
+<ul>
+<li>Byte = 8 bits</li>
+<li>K代表1024Byte</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Jinzhi</th>
+<th>Kilo</th>
+<th>Mega</th>
+<th>Giga</th>
+<th>Tera</th>
+<th>Peta</th>
+<th>Exa</th>
+<th>Zetta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>1024</td>
+<td>1024K</td>
+<td>1024M</td>
+<td>1024G</td>
+<td>1024T</td>
+<td>1024P</td>
+<td>1024E</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1000</td>
+<td>1000K</td>
+<td>1000M</td>
+<td>1000G</td>
+<td>1000T</td>
+<td>1000P</td>
+<td>1000E</td>
+</tr>
+</tbody>
+</table>
+<p>4 由于网络使用的是bit 为单位，因此网络常使用的单位为Mbps 是Mbits persecond，亦即是每秒多少Mbit。常听到的20M/5M 光世代传输速度，如果转成文件大小的Byte 时，其实理论最大传输值为：每秒2.5MByte/ 每秒625KByte的下载/上传速度。</p>
+<p>5 x86的个人电脑架构</p>
+<ul>
+<li>早期的芯片组通常分为两个桥接器来控制各元件的沟通，分别是：<ul>
+<li>（1）北桥：负责链接速度较快的CPU、内存与显卡接口等元件<ul>
+<li>由于北桥最重要的就是CPU 与内存之间的桥接，因此目前的主流架构中，大多将北桥内存控制器整合到CPU 封装当中了</li>
+</ul>
+</li>
+<li>（2）南桥：负责连接速度较慢的设备接口，包括硬盘、USB、网卡等等</li>
+</ul>
+</li>
+</ul>
+<p>6 CPU的工作频率：外频与倍频。在早期的CPU 设计中，所谓的外频指的是CPU与外部元件进行数据传输时的速度，倍频则是CPU 内部用来加速工作性能的一个倍数，两者相乘才是CPU的频率速度。</p>
+<p>7 很多计算机硬件玩家很喜欢玩“超频”，所谓的超频指的是：将CPU的倍频或者是外频通过主板的设置功能更改成较高频率的一种方式。</p>
+<p>8 如此一来所有的数据都被北桥卡死了，北桥又不可能比CPU 更快，因此这家伙常常是系统性能的瓶颈。为了解决这个问题，新的CPU 设计中，已经将内存控制器整合到CPU 内部，而链接CPU 与内存、显卡的控制器的设计，在Intel部份使用QPI （Quick PathInterconnect）与DMI 技术，而AMD 部份则使用Hyper Transport 了，这些技术都可以让CPU 直接与内存、显卡等设备分别进行沟通，而不需要通过外部的链接芯片了。</p>
+<p>9 超线程（Hyper-Threading, HT）现在的CPU 至少都是两个核心以上的多核心CPU 了，CPU 运算速度都太快了，因此运算核心经常处于闲置状态下。现在的系统大多都是多任务的系统，同时间有很多的程序会让CPU 来执行。若CPU 可以假象的同时执行两个程序，就可以让系统性能增加。每一个CPU 内部将重要的寄存器（register）分成两群，而让程序分别使用这两群寄存器。也就是说，可以有两个程序“同时竞争CPU 的运算单元”。虽然大部分i7 等级的CPU 其实只有四个实体核心，但通过HT 的机制，则操作系统可以抓到八个核心！并且让每个核心逻辑上分离，就可以同时运行八个程序了。</p>
+<p>10 操作系统（Operating System, OS）其实也是一组程序，这组程序的重点在于管理电脑的所有活动以及驱动系统中的所有硬件。操作系统通常会提供一整组的开发接口给工程师来开发软件！工程师只要遵守该开发接口那就很容易开发软件。操作系统除了核心程序之外，通常还会提供一整组开发接口，那就是系统调用层。软件开发工程师只要遵循公认的系统调用参数来开发软件，该软件就能够在该核心上头运行。所以你可以发现，软件与核心有比较大的关系，与硬件关系则不大！硬件也与核心有比较大的关系。</p>
+<h1 id="Chapter-1-Linux初识"><a href="#Chapter-1-Linux初识" class="headerlink" title="Chapter 1 Linux初识"></a>Chapter 1 Linux初识</h1><p>1 早期的计算机运算速度并不快，操作接口也很困扰。</p>
+<p>2 1960年代初期麻省理工学院（MIT）发展了所谓的：“相容分时系统（CompatibleTime-Sharing System, CTSS）”，它可以让大型主机通过提供数个终端机（terminal）以连线进入主机，来利用主机的资源进行运算工作。比较先进的主机大概也只能提供30个不到的终端机而已。</p>
+<p>3 为了更加强化大型主机的功能，以让主机的资源可以提供更多使用者来利用，所以在1965年前后，由贝尔实验室（Bell）、麻省理工学院（MIT）及奇异公司（GE, 或称为通用电器）共同发起了Multics的计划[1]，Multics计划的目的是想要让大型主机可以达成提供300个以上的终端机连线使用的目标。1969年凉凉。</p>
+<p>4 Thompson因为自己的需要，希望开发一个小小的操作系统以提供自己的需求。在1969年八月份左右在家将一些构想实现出来。当时Thompson将Multics庞大的复杂系统简化了不少，于是同实验室的朋友都戏称这个系统为：Unics。Thompson 的这个文件系统有两个重要的概念，分别是：</p>
+<ul>
+<li>所有的程序或系统设备都是文件</li>
+<li>不管建构编辑器还是附属文件，所写的程序只有一个目的，且要有效的完成目标。</li>
+</ul>
+<p>5 但是因为Unics本来是以组合语言写成的，组合语言具有专一性，加上当时的计算机机器架构都不太相同，所以每次要安装到不同的机器都得要重新编写组合语言，真不方便！后来Thompson与Ritchie合作想将Unics改以高阶程序语言来撰写。当时现成的高阶程序语言有B语言。但是由B语言所编译出来的核心性能不是很好。后来Dennis Ritchie [3] 将B语言重新改写成C语言，再以C语言重新改写与编译Unics的核心，最后正名与发行出Unix的正式版本！1973年：Unix的正式诞生，Ritchie等人以C语言写出第一个正式Unix核心</p>
+<p>6 柏克莱大学的Bill Joy [4]在取得了Unix的核心源代码后，着手修改成适合自己机器的版本，并且同时增加了很多工具软件与编译程序，最终将它命名为Berkeley Software Distribution（BSD）</p>
+<p>7 由于Unix的高度可移植性与强大的性能，加上当时并没有版权的纠纷，所以让很多商业公司开始了Unix操作系统的发展，例如AT&amp;T自家的System V、IBM的AIX以及HP与DEC等公司，都有推出自家的主机搭配自己的Unix操作系。1979 年时，AT&amp;T推出System V 第七版Unix ，这一版最重要的特色是可以支持x86架构的个人计算机系统，也就是说System V 可以在个人计算机上面安装与运行了。</p>
+<p>8 AT&amp;T由于商业的考虑，AT&amp;T在1979年发行的第七版Unix中，特别提到了“不可对学生提供源代码”的严格限制！同时，也造成Unix业界之间的紧张气氛，并且也引爆了很多的商业纠纷～</p>
+<p>9 影响最大的当然就是学校教Unix核心源代码相关学问的教授，1984年，谭宁邦教授于是乎自己动手写了Minix这个UnixLike的核心程序！</p>
+<p>10 Richard Mathew Stallman（史托曼）在1984年发起的GNU计划。1983年以后，因为实验室硬件的更换，使得史托曼无法继续以原有的硬件与操作系统继续自由程序的撰写～而且他进一步发现到，过去他所使用的Lisp操作系统，是麻省理工学院的专利软件，是无法共享的，这对于想要成立一个开放团体的史托曼是个阻碍。于是他便放弃了Lisp这个系统。1984年，史托曼开始GNU计划，这个计划的目的是：创建一个自由、开放的Unix操作系统（Free Unix）。创建一个操作系统谈何容易，聪明的史托曼干脆反其道而行～“既然操作系统太复杂，我就先写可以在Unix上面运行的小程序”。后来一堆人知道免费的GNU软件，并且实际使用后发现与原有的专利软件也差不了太多，于是便转而使用GNU软件，于是GNU计划逐渐打开知名度。史托曼又想：不论是什么软件，都得要进行编译成为二进制文件（binary program）后才能够执行，如果能够写出一个不错的编译器，那不就是大家都需要的软件了吗？因此他便开始撰写C语言的编译器，那就是现在相当有名的<strong>GNU C Compiler（gcc）</strong>，但开始撰写GCC时并不顺利，为此，他先转而将他原先就已经写过的Emacs编辑器写成可以在Unix上面跑的软件，并公布源代码。Emacs是一种程序编辑器，他可以在使用者撰写程序的过程中就进行程序语法的检验，此一功能可以减少程序设计师除错的时间！因为Emacs太优秀了，因此，很多人便直接向他购买。此时网际网络尚未流行，所以，史托曼便借着Emacs以磁带（tape）出售，赚了一点钱，进而开始全力撰写其他软件。并且成立自由软件基金会（FSF, Free Software Foundation），请更多工程师与志工撰写软件。终于还是完成了<strong>GCC</strong>。此外，他还撰写了更多可以被调用的C函数库（GNU C library），以及可以被使用来操作操作系统的基本接口BASH shell！这些都在1990年左右完成了！</p>
+<p>11 到了1985年，为了避免GNU所开发的自由软件被其他人所利用而成为专利软件，所以他与律师草拟了有名的通用公共许可证（General Public License, GPL），并且称呼他为copyleft（相对于专利软件的copyright！）。</p>
+<p>12 1984年创立GNU计划与FSF基金会的Stallman先生认为，写程序最大的快乐就是让自己发展的良好的软件让大家来使用。而为了避免自己的开发出来的Open source自由软件被拿去做成专利软件，于是Stallman同时将GNU与FSF发展出来的软件，都挂上GPL的版权宣告。GNU是GNU’s Not Unix的缩写。</p>
+<p>13 GPL（GNU General Public License, GPL），”Free software” is a matter of liberty, not price. To understand the concept, you should think of “free speech”, not “free beer”. “Free software” refers to the users’ freedom to run, copy,distribute, study, change, and improve the software.GPL 目前已经出到第三版GPLv3。但是，目前使用最广泛的，还是GPLv2！</p>
+<p>14 在1988年间，托瓦兹顺利的进入了赫尔辛基大学，并选读了计算机科学系。因为学业的需要与自己的兴趣，托瓦兹接触到了Unix这个操作系统，不好用，想自己搞。他在购买了最新的Intel 386的个人计算机后，就立即安装了Minix这个操作系统，拿到Minix并且安装在托瓦兹的386计算机上之后，托瓦兹跟BBS上面一堆工程师一样，他发现Minix虽然真的很棒，但是谭宁邦教授就是不愿意进行功能的加强，导致一堆工程师在操作系统功能上面的欲求不满。他参考Minix的设计理念与书上的程序码，然后仔细研究出386个人计算机的性能最优化，然后使用GNU的自由软件将核心程序码与386紧紧的结合在一起，最终写出他所需要的核心程序。于是他便将这个核心放置在网络上提供大家下载，同时在BBS上面贴了一则消息。</p>
+<blockquote>
+<p>Hello everybody out there using minixI’m<br>doing a （free）operation system （just a hobby,<br>won’t be big and professional like gnu）for 386（486）AT clones.<br>I’ve currently ported bash （1.08）and gcc （1.40）,<br>and things seem to work. This implies that i’ll get<br>something practical within a few months, and I’d like to know<br>what features most people want. Any suggestions are welcome,<br>but I won’t promise I’ll implement them :-）</p>
+</blockquote>
+<p>15 有趣的是，因为托瓦兹放置核心的那个FTP网站的目录为：Linux，从此，大家便称这个核心为Linux了。</p>
+<p>16 为了让自己的Linux能够相容于Unix系统,修改Linux，让Linux符合软件能够运行的规范。于是托瓦兹开始参考标准的POSIX规范。</p>
+<p>17 Linux虽然是托瓦兹发明的，而且内容还绝不会涉及专利软件的版权问题。不过，如果单靠托瓦兹自己一个人的话，那么Linux要茁壮实在很困难～因为一个人的力量是很有限的。他将释出的Linux核心放置在FTP上面，并请告知大家新的版本信息，等到使用者下载了这个核心并且安装之后，如果发生问题，或者是由于特殊需求亟需某些硬件的驱动程序，那么这些使用者就会主动回报给托瓦兹。在托瓦兹能够解决的问题范围内，他都能很快速的进行Linux核心的更新与除错。因为Linux的核心是Open Source的，骇客志工们很容易就能够跟随Linux的原本设计架构，并且写出相容的驱动程序或者软件。</p>
+<p>18 这群素未谋面的虚拟团队们，在1994年终于完成的Linux的核心正式版！version 1.0。这一版同时还加入了X Window System的支持呢！且于1996年完成了2.0版、2011 年释出3.0版，更于2015 年4 月释出了4.0 版。</p>
+<p>19 Linux的核心版本编号有点类似如下的样子：</p>
+<blockquote>
+<p>3.10.0-123.el7.x86_64<br>主版本.次版本.释出版本-修改版本</p>
+</blockquote>
+<p>20 主、次版本为奇数：发展中版本（development）；主、次版本为偶数：稳定版本（stable）。这种奇数、偶数的编号格式在3.0 推出之后就失效了。从3.0 版开始，核心主要依据主线版本（MainLine）来开发，开发完毕后会往下一个主线版本进行。例如3.10 就是在3.9的架构下继续开发出来的新的主线版本。</p>
+<p>21 Linux核心版本与distribution 的版本并不相同，为了让使用者能够接触到Linux，于是很多的商业公司或非营利团体，就将Linux Kernel（含tools）与可运行的软件整合起来，加上自己具有创意的工具程序，这个工具程序可以让使用者以光盘/DVD或者通过网络直接安装/管理Linux系统。这个“Kernel + Softwares + Tools + 可完整安装程序”的咚咚，我们称之为Linux distribution，一般中文翻译成可完整安装套件，或者Linux发布商套件等。</p>
+<p>22 为了让所有的Linux distributions开发不致于差异太大，且让这些开发商在开发的时候有所依据，还有Linux Standard Base （LSB）等标准来规范开发者，以及目录架构的File system Hierarchy Standard （FHS）标准规范！</p>
+<p>【本节完结】</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-03-30</span><i class="fa fa-tag"></i><a class="tag" href="/categories/Linux/" title="Linux">Linux </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2018/03/30/Chapter0&amp;1_计科概论&amp;Linux初识/,Hailu's Blog,《鸟哥的Linux私房菜基础篇》Chapter0&amp;1读书笔记,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/03/31/Chapter2&amp;3_主机规划与磁盘分区&amp;安装CentOS7x/" title="《鸟哥的Linux私房菜基础篇》Chapter2&amp;3读书笔记">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/03/29/Chapter7_类/" title="《C++ Primer 5》Chapter7读书笔记">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

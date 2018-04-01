@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hailu"><title>《鸟哥的Linux私房菜基础篇》Chapter2&3读书笔记 · Hailu's Blog</title><meta name="description" content="Chapter2&amp;amp;3的读书笔记
+
+主机规划与磁盘分区主机规划1 在Linux系统中，每个设备都被当成一个文件来对待
+2 在Linux这个系统当中，几乎所有的硬件设备文件都在/dev这个目录内设备                 |设备文件名称        |————        | ——"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">Hailu's Blog</a></h3><div class="description"><p>53696C656E636520697320676F6C64</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">Sobre</a></li><li><a href="/archives">Arquivo</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>《鸟哥的Linux私房菜基础篇》Chapter2&amp;3读书笔记</a></h3></div><div class="post-content"><p>Chapter2&amp;3的读书笔记</p>
+<a id="more"></a>
+<h1 id="主机规划与磁盘分区"><a href="#主机规划与磁盘分区" class="headerlink" title="主机规划与磁盘分区"></a>主机规划与磁盘分区</h1><h2 id="主机规划"><a href="#主机规划" class="headerlink" title="主机规划"></a>主机规划</h2><p>1 在Linux系统中，每个设备都被当成一个文件来对待</p>
+<p>2 在Linux这个系统当中，几乎所有的硬件设备文件都在/dev这个目录内<br>设备                 |设备文件名称        |<br>————        | ————-     |<br>SCSI/SATA/USB硬盘机  | /dev/sd[a-p]      |<br>USB闪存盘            | /dev/sd[a-p] （与SATA相同） |<br>VirtI/O界面          | /dev/vd[a-p] （用于虚拟机内） |<br>软盘机               | /dev/fd[0-7]  |<br>打印机               | /dev/lp[0-2] （25针打印机）/dev/usb/lp[0-15] （USB 接口）  |<br>鼠标                 | /dev/input/mouse[0-15] （通用）/dev/psaux （PS/2界面）/dev/mouse （当前鼠标）|<br>CDROM/DVDROM         | /dev/scd[0-1] （通用）/dev/sr[0-1] （通用，CentOS 较常见）/dev/cdrom （当前CDROM）|<br>磁带机               | /dev/ht0 （IDE 界面）/dev/st0 （SATA/SCSI界面）/dev/tape（当前磁带）|<br>IDE硬盘机            | /dev/hd[a-d] （旧式系统才有）|</p>
+<h2 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h2><p>1 设备文件名：在Linux中，一切皆文件。所谓设备文件名，指的是设备作为文件在Linux中的文件名。</p>
+<ul>
+<li>SATA/USB接口的磁盘根本就没有一定的顺序，那如何决定他的设备文件名呢？这个时候就得要根据Linux核心侦测到磁盘的顺序。</li>
+</ul>
+<p>2 如果你的磁盘被分区成两个分区，那么每个分区的设备文件名又是什么？</p>
+<p>3 早期磁盘第一个扇区里面含有的重要信息我们称为MBR （Master BootRecord）格式，但是由于近年来磁盘的容量不断扩大，造成读写上的一些困扰，甚至有些大于2TB 以上的磁盘分区已经让某些操作系统无法存取。因此后来又多了一个新的磁盘分区格式，称为GPT （GUID partition table）！这两种分区格式与限制不太相同。</p>
+<p>4 MSDOS（MBR）与GPT 磁盘分区表（partition table）</p>
+<ul>
+<li>早期的Linux 系统为了相容于Windows 的磁盘，因此使用的是支持Windows 的MBR（Master Boot Record, 主要开机纪录区）的方式来处理开机管理程序与分区表！而开机管理程序纪录区与分区表则通通放在磁盘的第一个扇区，这个扇区通常是512Bytes 的大小（旧的磁盘扇区都是512Bytes 喔！），所以说，第一个扇区512Bytes 会有这两个数据：<ul>
+<li>主要开机记录区（Master Boot Record, MBR）：可以安装开机管理程序的地方，有446 Bytes</li>
+<li>分区表（partition table）：记录整颗硬盘分区的状态，有64 Bytes</li>
+<li>由于分区表所在区块仅有64 Bytes容量，因此最多仅能有四组记录区，每组记录区记录了该区段的启始与结束的柱面号码。假设上面的硬盘设备文件名为/dev/sda时，那么这四个分区在Linux系统中的设备文件名如下所示，重点在于文件名后面会再接一个数字，这个数字与该分区所在的位置有关喔。由于分区表就只有64 Bytes而已，最多只能容纳四笔分区的记录，这四个分区的记录被称为主要（Primary）或延伸（Extended）分区。</li>
+<li>MBR 主要分区、延伸分区与逻辑分区的特性我们作个简单的定义：<ul>
+<li>主要分区与延伸分区最多可以有四笔（硬盘的限制）</li>
+<li>延伸分区最多只能有一个（操作系统的限制）</li>
+<li>逻辑分区是由延伸分区持续切割出来的分区；</li>
+<li>能够被格式化后，作为数据存取的分区为主要分区与逻辑分区。延伸分区无法格式化；</li>
+<li>逻辑分区的数量依操作系统而不同，在Linux系统中SATA硬盘已经可以突破63个以上的分区限制；</li>
+</ul>
+</li>
+<li>MBR的缺陷<ul>
+<li>操作系统无法抓取到2.2T 以上的磁盘容量！</li>
+<li>MBR 仅有一个区块，若被破坏后，经常无法或很难救援。</li>
+<li>MBR 内的存放开机管理程序的区块仅446Bytes，无法容纳较多的程序码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>GUID partition table, GPT 磁盘分区表<ul>
+<li>目前已经有4K 的扇区设计出现！为了相容于所有的磁盘，因此在扇区的定义上面，大多会使用所谓的逻辑区块位址（Logical BlockAddress, LBA）来处理。GPT 将磁盘所有区块以此LBA（默认为512Bytes 喔！）来规划，而第一个LBA 称为LBA0 （从0 开始编号）</li>
+<li>GPT 使用了34 个LBA 区块来纪录分区信息！同时与过去MBR 仅有一的区块，被干掉就死光光的情况不同，GPT 除了前面34 个LBA 之外，整个磁盘的最后33 个LBA 也拿来作为另一个备份！这样或许会比较安全些吧！<ul>
+<li>LBA0 （MBR 相容区块）与MBR 模式相似的，这个相容区块也分为两个部份，一个就是跟之前446 Bytes 相似的区块，储存了第一阶段的开机管理程序！</li>
+<li>LBA1 （GPT 表头纪录）这个部份纪录了分区表本身的位置与大小，同时纪录了备份用的GPT 分区（就是前面谈到的在最后34 个LBA 区块）放置的位置，同时放置了分区表的检验机制码CRC32），操作系统可以根据这个检验码来判断GPT 是否正确。若有错误，还可以通过这个纪录区来取得备份的GPT（磁盘最后的那个备份区块）来恢复GPT 的正常运行。</li>
+<li>LBA2-33 （实际纪录分区信息处）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>3 开机流程中的BIOS与UEFI开机检测程序，目前的主机系统在载入硬件驱动方面的程序，主要有早期的BIOS 与新的UEFI 两种机制</p>
+<ul>
+<li>BIOS 搭配MBR/GPT 的开机流程：CMOS是记录各项硬件参数且嵌入在主板上面的储存器，BIOS则是一个写入到主板上的一个固件（再次说明，固件就是写入到硬件上的一个软件程序）。BIOS就是在开机的时候，计算机系统会主动执行的第一个程序。接下来BIOS会去分析计算机里面有哪些储存设备，我们以硬盘为例，BIOS会依据使用者的设置去取得能够开机的硬盘，并且到该硬盘里面去读取第一个扇区的MBR位置。MBR这个仅有446 Bytes的硬盘容量里面会放置最基本的开机管理程序，此时BIOS就功成圆满，而接下来就是MBR内的开机管理程序的工作了。开机管理程序的目的是在载入（load）核心文件，读取核心文件，然后接下来就是核心文件的工作，开机管理程序与BIOS 也功成圆满，将之后的工作就交给操作系统。如果分区表为GPT 格式的话，那么BIOS 也能够从LBA0 的MBR 相容区块读取第一阶段的开机管理程序码，如果你的开机管理程序能够认识GPT 的话，那么使用BIOS 同样可以读取到正确的操作系统核心。由于LBA0 仅提供第一阶段的开机管理程序码，因此如果你使用类似grub 的开机管理程序的话，那么就得要额外分区出一个“ BIOS boot ”的分区，这个分区才能够放置其他开机过程所需的程序码！在CentOS 当中，这个分区通常占用2MB 左右而已。BIOS与MBR都是硬件本身会支持的功能，至于Boot loader则是操作系统安装在MBR上面的一套软件了。这个boot loader的主要任务有下面这些项目：<strong>提交菜单，载入核心文件，转交其他loader</strong>。</li>
+<li>UEFI BIOS 搭配GPT 开机的流程：GPT 可以提供到64bit 的寻址，然后也能够使用较大的区块来处理开机管理程序。但是BIOS 其实不懂GPT 耶！还得要通过GPT 提供相容模式才能够读写这个磁盘设备～而且BIOS 仅为16 位的程序，在与现阶段新的操作系统接轨方面有点弱掉了！为了解决这个问题，因此就有了UEFI （Unified Extensible Firmware Interface）这个统一可延伸固件界面的产生。</li>
+</ul>
+<p>4 所谓的目录树架构（directory tree）就是以根目录为主，然后向下呈现分支状的目录结构的一种文件架构。所谓的“挂载”就是利用一个目录当成进入点，将磁盘分区的数据放置在该目录下；也就是说，进入该目录就可以读取该分区的意思。这个动作我们称为“挂载”，那个进入点的目录我们称为“挂载点”。由于整个Linux系统最重要的是根目录，因此根目录一定需要挂载到某个分区的。至于其他的目录则可依使用者自己的需求来给予挂载到不同的分区。</p>
+<h1 id="安装CentOS7-x"><a href="#安装CentOS7-x" class="headerlink" title="安装CentOS7.x"></a>安装CentOS7.x</h1><p><strong>略</strong></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-03-31</span><i class="fa fa-tag"></i><a class="tag" href="/categories/Linux/" title="Linux">Linux </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2018/03/31/Chapter2&amp;3_主机规划与磁盘分区&amp;安装CentOS7x/,Hailu's Blog,《鸟哥的Linux私房菜基础篇》Chapter2&amp;3读书笔记,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/04/01/Chapter4_首次登陆与线上求助/" title="《鸟哥的Linux私房菜基础篇》Chapter4读书笔记">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/03/30/Chapter0&amp;1_计科概论&amp;Linux初识/" title="《鸟哥的Linux私房菜基础篇》Chapter0&amp;1读书笔记">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
